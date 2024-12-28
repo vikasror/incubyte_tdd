@@ -20,7 +20,12 @@ class StringCalculator
   def fetch_delimiter_and_input(input)
     if input.start_with?("//") # delimiters type input start with //
       delimiter_string, input = input.split("\n")
-      delimiter = /#{delimiter_string.split("//").last}/
+      delimiter_sub_str = delimiter_string.split("//").last
+      if delimiter_sub_str.start_with?('[') # multiple delimiters pattern
+        delimiter = /#{delimiter_string.scan(/\[(.*?)\]/).flatten.map { |d| Regexp.escape(d) }.join('|')}/
+      else
+        delimiter = /#{delimiter_sub_str}/
+      end
     else
       delimiter = /[,\n]/ # default delimiters
     end
