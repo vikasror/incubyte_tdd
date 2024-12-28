@@ -16,5 +16,9 @@ RSpec.describe StringCalculator do
     it 'output the number itself if only one input is given' do
       expect(subject.add("2")).to eq(2)
     end
+
+    it 'output the sum of two numbers separated by a comma' do
+      expect(subject.add("1,5")).to eq(6)
+    end
   end
 end
