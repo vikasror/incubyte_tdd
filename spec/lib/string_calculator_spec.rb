@@ -28,5 +28,9 @@ RSpec.describe StringCalculator do
     it 'returns the sum of all the numbers with new lines between numbers (instead of commas)' do
       expect(subject.add("1\n2,3")).to eq(6)
     end
+
+    it 'returns the sum of all the numbers with new lines between numbers (instead of commas)' do
+      expect(subject.add("1\n2,\n3,2")).to eq(8)
+    end
   end
 end
