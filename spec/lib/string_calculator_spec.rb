@@ -44,5 +44,9 @@ RSpec.describe StringCalculator do
     it 'throw an exception with a negative number' do
       expect { subject.add("1,-5") }.to raise_error("negative numbers not allowed -5")
     end
+
+    it 'throw an exception with a negative numbers' do
+      expect { subject.add("//;\n1;2;-3;-7") }.to raise_error("negative numbers not allowed -3, -7")
+    end
   end
 end
