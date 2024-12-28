@@ -5,7 +5,12 @@ class StringCalculator
 
     input, delimiter = fetch_delimiter_and_input(input)
 
-    input.split(delimiter).map(&:to_i).sum
+    input_num = input.split(delimiter).map(&:to_i)
+
+    neg_nums = input_num.select { |num| num < 0 }
+    raise "negative numbers not allowed #{neg_nums.join(', ')}" if neg_nums.present?
+
+    input_num.sum
   end
 
   private
