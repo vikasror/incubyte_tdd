@@ -12,5 +12,9 @@ RSpec.describe StringCalculator do
     it 'output should be 1 for an 1 string' do
       expect(subject.add("1")).to eq(1)
     end
+
+    it 'output the number itself if only one input is given' do
+      expect(subject.add("2")).to eq(2)
+    end
   end
 end
