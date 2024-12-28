@@ -3,14 +3,21 @@ class StringCalculator
   def add(input)
     return 0 if input.empty?
 
-    # delimiters type input start with //
-    if input.start_with?("//")
+    input, delimiter = fetch_delimiter_and_input(input)
+
+    input.split(delimiter).map(&:to_i).sum
+  end
+
+  private
+
+  def fetch_delimiter_and_input(input)
+    if input.start_with?("//") # delimiters type input start with //
       delimiter_string, input = input.split("\n")
       delimiter = /#{delimiter_string.split("//").last}/
     else
-      delimiter = /[,\n]/
+      delimiter = /[,\n]/ # default delimiters
     end
 
-    input.split(delimiter).map(&:to_i).sum
+    [input, delimiter]
   end
 end
