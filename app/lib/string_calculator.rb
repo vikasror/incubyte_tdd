@@ -10,6 +10,8 @@ class StringCalculator
     neg_nums = input_num.select { |num| num < 0 }
     raise "negative numbers not allowed #{neg_nums.join(', ')}" if neg_nums.present?
 
+    input_num.reject! { |num| num > 1000 }
+
     input_num.sum
   end
 
