@@ -18,17 +18,16 @@ class StringCalculator
   private
 
   def fetch_delimiter_and_input(input)
-    if input.start_with?("//") # delimiters type input start with //
-      delimiter_string, input = input.split("\n")
-      delimiter_sub_str = delimiter_string.split("//").last
-      if delimiter_sub_str.start_with?('[') # multiple delimiters pattern
-        delimiter = /#{delimiter_string.scan(/\[(.*?)\]/).flatten.map { |d| Regexp.escape(d) }.join('|')}/
-      else
-        delimiter = /#{delimiter_sub_str}/
-      end
-    else
-      delimiter = /[,\n]/ # default delimiters
-    end
+    return [input, /[,\n]/] unless input.start_with?("//") # Default delimiters if no custom delimiter
+
+    delimiter_string, input = input.split("\n", 2)
+    delimiter_sub_str = delimiter_string[2..] # Extract substring after "//"
+
+    delimiter = if delimiter_sub_str.start_with?('[') # Multiple delimiters
+                  /#{delimiter_sub_str.scan(/\[(.*?)\]/).flatten.map { |del| Regexp.escape(del) }.join('|')}/
+                else # Single custom delimiter
+                  Regexp.escape(delimiter_sub_str)
+                end
 
     [input, delimiter]
   end
