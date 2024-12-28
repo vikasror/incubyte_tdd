@@ -36,5 +36,9 @@ RSpec.describe StringCalculator do
     it 'support different delimiters(;)' do
       expect(subject.add("//;\n1;2")).to eq(3)
     end
+
+    it 'support different delimiters(:)' do
+      expect(subject.add("//:\n1:2:6")).to eq(9)
+    end
   end
 end
